@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অনুদান হিসাব রেজিস্টার - মদিনাতুল উলূম মাদ্রাসা</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* হেডার ও মাদ্রাসার নাম */
+        .header-card {
+            background: #ffffff;
+            border-top: 5px solid #0d7348;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+
+        .bismillah {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .madrasa-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0b6840;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .madrasa-address {
+            font-size: 15px;
+            color: #4b5563;
+            margin-bottom: 8px;
+        }
+
+        .phone-badge {
+            display: inline-block;
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            color: #065f46;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            margin-top: 10px;
+            font-size: 17px;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        /* কার্ড লেআউট */
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0d7348;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* এন্ট্রি ফর্ম গ্রিড */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+
+        .form-control {
+            padding: 9px 12px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14.5px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: #0d7348;
+            box-shadow: 0 0 0 3px rgba(13, 115, 72, 0.15);
+        }
+
+        .btn-submit {
+            background-color: #0d7348;
+            color: #fff;
+            padding: 11px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #095233;
+        }
+
+        /* সামারি ড্যাশবোর্ড */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary-box {
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 5px solid #0d7348;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+        }
+
+        .summary-box.orange {
+            border-left-color: #f59e0b;
+        }
+
+        .summary-title {
+            font-size: 13.5px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .summary-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 4px;
+        }
+
+        /* সার্চ ও টুলবার */
+        .table-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .btn-action {
+            background: #1e40af;
+            color: white;
+            border: none;
+            padding: 9px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-action:hover {
+            background: #1e3a8a;
+        }
+
+        /* টেবিল ডিজাইন */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        table th, table td {
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f3f4f6;
+            color: #374151;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        table tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .badge-sector {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12.5px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* প্রিন্ট মিডিয়া স্টাইল */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .no-print, .btn-submit, .table-toolbar, .form-card, .summary-grid {
+                display: none !important;
+            }
+            .header-card, .card {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+            table th {
+                background-color: #eaeaea !important;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- মাদ্রাসার তথ্যযুক্ত হেডার -->
+    <div class="header-card">
+        <div class="bismillah">বিসমিল্লাহির রাহমানির রাহীম</div>
+        <h1 class="madrasa-title">মদিনাতুল উলূম দৃষ্টি প্রতিবন্ধী এতিমখানা লিল্লাহ্ বোর্ডিং মাদ্রাসা</h1>
+        <div class="madrasa-address">ঠিকানা: ছোট পাইটি, আমবাগান, স্টাফ কোয়ার্টার, ডেমরা-ঢাকা</div>
+        <div class="phone-badge">
+            📞 মোবাইল নং: 01917226967, 01953808171
+        </div>
+        <div class="page-subtitle">সম্মানিত দাতাদের অনুদান হিসাব রেজিস্টার</div>
+    </div>
+
+    <!-- সংক্ষিপ্ত সারাংশ -->
+    <div class="summary-grid no-print">
+        <div class="summary-box">
+            <div class="summary-title">মোট আদায়কৃত অনুদান</div>
+            <div class="summary-value" id="totalAmount">৳ ০/-</div>
+        </div>
+        <div class="summary-box orange">
+            <div class="summary-title">মোট অনুদান এন্ট্রি সংখ্যা</div>
+            <div class="summary-value" id="totalCount">০ জন</div>
+        </div>
+    </div>
+
+    <!-- নতুন অনুদান এন্ট্রি ফর্ম -->
+    <div class="card form-card no-print">
+        <div class="card-title">📝 নতুন অনুদান এন্ট্রি করুন</div>
+        <form id="donationForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>তারিখ *</label>
+                    <input type="date" id="donDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>দাতার নাম *</label>
+                    <input type="text" id="donName" class="form-control" placeholder="দাতার পূর্ণ নাম লিখুন" required>
+                </div>
+                <div class="form-group">
+                    <label>ফোন নম্বর *</label>
+                    <input type="text" id="donPhone" class="form-control" placeholder="০১XXXXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>ঠিকানা</label>
+                    <input type="text" id="donAddress" class="form-control" placeholder="দাতার ঠিকানা">
+                </div>
+                <div class="form-group">
+                    <label>মাসের নাম *</label>
+                    <select id="donMonth" class="form-control" required>
+                        <option value="জানুয়ারি">জানুয়ারি</option>
+                        <option value="ফেব্রুয়ারি">ফেব্রুয়ারি</option>
+                        <option value="মার্চ">মার্চ</option>
+                        <option value="এপ্রিল">এপ্রিল</option>
+                        <option value="মে">মে</option>
+                        <option value="জুন">জুন</option>
+                        <option value="জুলাই">জুলাই</option>
+                        <option value="আগস্ট">আগস্ট</option>
+                        <option value="সেপ্টেম্বর">সেপ্টেম্বর</option>
+                        <option value="অক্টোবর">অক্টোবর</option>
+                        <option value="নভেম্বর">নভেম্বর</option>
+                        <option value="ডিসেম্বর">ডিসেম্বর</option>
+                        <option value="সাধারণ অনুদান">সাধারণ অনুদান</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>অনুদানের খাত *</label>
+                    <select id="donSector" class="form-control" required>
+                        <option value="মসজিদ মাদ্রাসার উন্নয়ন ফান্ড">মসজিদ মাদ্রাসার উন্নয়ন ফান্ড</option>
+                        <option value="দান">দান</option>
+                        <option value="বাবা-মার জন্য দোয়া">বাবা-মার জন্য দোয়া</option>
+                        <option value="মাসিক দান">মাসিক দান</option>
+                        <option value="যাকাত">যাকাত</option>
+                        <option value="সাদকাহ">সাদকাহ</option>
+                        <option value="শীতের মার্কেট">শীতের মার্কেট</option>
+                        <option value="একবেলা খাবার">একবেলা খাবার</option>
+                        <option value="ইফতার">ইফতার</option>
+                        <option value="১ জন বাচ্চার মাসিক খরচ">১ জন বাচ্চার মাসিক খরচ</option>
+                        <option value="২ জন বাচ্চার মাসিক খরচ">২ জন বাচ্চার মাসিক খরচ</option>
+                        <option value="একাধিক বাচ্চার মাসিক খরচ">একাধিক বাচ্চার মাসিক খরচ</option>
+                        <option value="দোয়া">দোয়া</option>
+                        <option value="কুরবানী ফান্ড">কুরবানী ফান্ড</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>টাকার পরিমাণ (৳) *</label>
+                    <input type="number" id="donAmount" class="form-control" placeholder="টাকার পরিমাণ লিখুন" min="1" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">💾 অনুদান সংরক্ষণ করুন</button>
+        </form>
+    </div>
+
+    <!-- রেজিস্টার টেবিল ও সার্চ -->
+    <div class="card">
+        <div class="card-title">
+            <span>📋 অনুদান হিসাব রেজিস্টার খাতা</span>
+        </div>
+
+        <div class="table-toolbar no-print">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="form-control" placeholder="🔍 নাম, ফোন নম্বর, মাস বা খাত দিয়ে খুঁজুন..." onkeyup="renderTable()">
+            </div>
+            <div>
+                <button class="btn-action" onclick="window.print()">🖨️ রেজিস্টার PDF সেভ / প্রিন্ট করুন</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ক্র.নং</th>
+                        <th>তারিখ</th>
+                        <th>দাতার নাম</th>
+                        <th>ফোন নম্বর</th>
+                        <th>ঠিকানা</th>
+                        <th>মাস</th>
+                        <th>অনুদানের খাত</th>
+                        <th>পরিমাণ (৳)</th>
+                        <th class="no-print">অ্যাকশন</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- জাভাস্ক্রিপ্ট দিয়ে ডাটা বসবে -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // লোকাল স্টোরেজ থেকে ডাটা লোড
+    let donations = JSON.parse(localStorage.getItem('madrasa_donations')) || [];
+
+    // আজকের তারিখ ডিফল্ট সেট করা
+    document.getElementById('donDate').valueAsDate = new Date();
+
+    // অনুদান সেভ ফাংশন
+    document.getElementById('donationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const newEntry = {
+            id: Date.now(),
+            date: document.getElementById('donDate').value,
+            name: document.getElementById('donName').value.trim(),
+            phone: document.getElementById('donPhone').value.trim(),
+            address: document.getElementById('donAddress').value.trim() || '—',
+            month: document.getElementById('donMonth').value,
+            sector: document.getElementById('donSector').value,
+            amount: parseFloat(document.getElementById('donAmount').value)
+        };
+
+        donations.unshift(newEntry);
+        localStorage.setItem('madrasa_donations', JSON.stringify(donations));
+
+        // ফর্ম রিসেট
+        document.getElementById('donName').value = '';
+        document.getElementById('donPhone').value = '';
+        document.getElementById('donAddress').value = '';
+        document.getElementById('donAmount').value = '';
+
+        renderTable();
+        alert('সফলভাবে অনুদান রেজিস্টারে সংরক্ষিত হয়েছে!');
+    });
+
+    // ডাটা টেবিল রেন্ডার এবং সার্চ
+    function renderTable() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+
+        let total = 0;
+        let count = 0;
+
+        const filtered = donations.filter(item => {
+            return item.name.toLowerCase().includes(query) ||
+                   item.phone.toLowerCase().includes(query) ||
+                   item.month.toLowerCase().includes(query) ||
+                   item.sector.toLowerCase().includes(query) ||
+                   item.address.toLowerCase().includes(query);
+        });
+
+        filtered.forEach((item, index) => {
+            total += item.amount;
+            count++;
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${item.date}</td>
+                <td><strong>${item.name}</strong></td>
+                <td>${item.phone}</td>
+                <td>${item.address}</td>
+                <td>${item.month}</td>
+                <td><span class="badge-sector">${item.sector}</span></td>
+                <td><strong>৳ ${item.amount.toLocaleString('bn-BD')}</strong></td>
+                <td class="no-print">
+                    <button class="btn-delete" onclick="deleteEntry(${item.id})">মুছুন</button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        if(filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#888; padding:15px;">কোনো তথ্য পাওয়া যায়নি!</td></tr>`;
+        }
+
+        // মোট হিসাব আপডেট
+        document.getElementById('totalAmount').innerText = '৳ ' + total.toLocaleString('bn-BD') + '/-';
+        document.getElementById('totalCount').innerText = count + ' জন';
+    }
+
+    // এন্ট্রি ডিলিট
+    function deleteEntry(id) {
+        if(confirm('আপনি কি এই হিসাবটি মুছে ফেলতে চান?')) {
+            donations = donations.filter(item => item.id !== id);
+            localStorage.setItem('madrasa_donations', JSON.stringify(donations));
+            renderTable();
+        }
+    }
+
+    // পেজ লোড হলে টেবিল দেখাবে
+    renderTable();
+</script>
+
+</body>
+</html>
