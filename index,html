@@ -1,0 +1,56 @@
+const SHEET_NAME = 'Donations';
+
+function getSheet_() {
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = spreadsheet.getSheetByName(SHEET_NAME);
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(SHEET_NAME);
+    sheet.appendRow(['id', 'date', 'name', 'phone', 'address', 'month', 'sector', 'amount']);
+  }
+  return sheet;
+}
+
+function doGet(e) {
+  const callback = (e && e.parameter && e.parameter.callback) || 'handleDonationsResponse';
+  const values = getSheet_().getDataRange().getValues();
+  const entries = values.slice(1).filter(row => row[0] !== '').map(row => ({
+    id: String(row[0]),
+    date: String(row[1]),
+    name: String(row[2]),
+    phone: String(row[3]),
+    address: String(row[4]),
+    month: String(row[5]),
+    sector: String(row[6]),
+    amount: Number(row[7])
+  }));
+
+  const output = ContentService.createTextOutput(callback + '(' + JSON.stringify(entries) + ');');
+  output.setMimeType(ContentService.MimeType.JAVASCRIPT);
+  return output;
+}
+
+function doPost(e) {
+  const request = JSON.parse(e.postData.contents);
+  const sheet = getSheet_();
+  const values = sheet.getDataRange().getValues();
+
+  if (request.action === 'save') {
+    const entry = request.entry;
+    sheet.appendRow([
+      String(entry.id), entry.date, entry.name, entry.phone, entry.address,
+      entry.month, entry.sector, Number(entry.amount)
+    ]);
+  }
+
+  if (request.action === 'delete') {
+    for (let row = values.length - 1; row >= 1; row--) {
+      if (String(values[row][0]) === String(request.id)) {
+        sheet.deleteRow(row + 1);
+        break;
+      }
+    }
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({ success: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
